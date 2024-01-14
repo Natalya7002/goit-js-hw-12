@@ -1,0 +1,12 @@
+import{S as h,i as y,a as L}from"./assets/vendor-029e731f.js";(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))a(e);new MutationObserver(e=>{for(const t of e)if(t.type==="childList")for(const l of t.addedNodes)l.tagName==="LINK"&&l.rel==="modulepreload"&&a(l)}).observe(document,{childList:!0,subtree:!0});function i(e){const t={};return e.integrity&&(t.integrity=e.integrity),e.referrerpolicy&&(t.referrerPolicy=e.referrerpolicy),e.crossorigin==="use-credentials"?t.credentials="include":e.crossorigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function a(e){if(e.ep)return;e.ep=!0;const t=i(e);fetch(e.href,t)}})();const v="41780713-d9d59fd8c4b13cd5ac9a220da",q=document.querySelector(".gallery"),n=document.querySelector(".load-more-wrapper"),c=document.querySelector(".loader-wrapper"),w=document.querySelector("button.load-more"),b=document.querySelector(".search-form"),u=document.querySelector(".no-more"),S=new h(".gallery li a",{captionsData:"alt",captionDelay:250});let s=[],d=1,m="";const f=40;async function p(){const o=document.querySelector(".search-form input").value;if(o==="")return y.error({title:"Error",message:"Please enter a search query"});m!==o?(s=[],d=1,m=o):d+=1,u.classList.remove("is-active"),n.classList.add("is-hidden"),c.classList.add("is-active");try{const r=await L.get("https://pixabay.com/api/",{params:{key:v,q:o,image_type:"photo",orientation:"horizontal",pretty:!0,safesearch:!0,per_page:f,page:d}});s.push(...r.data.hits),c.classList.remove("is-active"),n.classList.remove("is-hidden"),r.data.hits.length<f&&(n.classList.add("is-hidden"),u.classList.add("is-active"))}catch(r){console.log(r),c.classList.remove("is-active")}}async function g(o){const r=s.map(a=>`
+        <li class="gallery-item">
+            <a class="gallery-link" href="${a.largeImageURL}">
+            <img
+                class="gallery-image"
+                src="${a.webformatURL}"
+                alt="${a.tags}"
+            />
+            </a>
+        </li>
+        `).join("");if(q.innerHTML=r,s.length===0)return y.error({title:"Error",message:"No images found for this request"});S.refresh();const i=document.querySelector(".gallery-item").getBoundingClientRect().height;window.scrollBy({top:i*2,behavior:"smooth"})}b.addEventListener("submit",async o=>{o.preventDefault(),await p(),await g()});w.addEventListener("click",async()=>{await p(),await g()});
+//# sourceMappingURL=commonHelpers.js.map
