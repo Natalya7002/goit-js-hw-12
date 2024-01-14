@@ -4,20 +4,34 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
-    <link rel="stylesheet" href="./css/styles.css" />
+    <title>Gallery</title>
+    <link rel="stylesheet" href="./css/gallery.css" />
   </head>
   <body>
-    <load ="partials/header.html" />
-
-    <section>
-      <h1>Lorem ipsum dolor sit amet.</h1>
-      <!-- Path to images as from index.html file -->
-      <img src="./img/javascript.svg" alt="" />
-    </section>
-
-    <!-- Loads the specified .html file -->
-    <load ="partials/vite-promo.html" />
+    <div id="app">
+      <form class="search-form">
+        <div>
+          <input
+            type="text"
+            name="search"
+            id="search"
+            placeholder="Search images"
+          />
+          <button type="submit">Search</button>
+        </div>
+      </form>
+      <ul class="gallery"></ul>
+      <div class="load-more-wrapper is-hidden">
+        <button class="load-more">Load more</button>
+      </div>
+      <div class="no-more">
+        We're sorry, but you've reached the end of search results.
+      </div>
+      <div class="loader-wrapper">
+        <span class="loader"></span>
+      </div>
+    </div>
+    
 
     <script type="module" src="./main.js"></script>
   </body>
