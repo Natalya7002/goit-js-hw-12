@@ -24,7 +24,7 @@ const perPage = 40;
 async function searchImages() {
   const query = document.querySelector('.search-form input').value;
 
-  if (query === '') {
+  if (!query) {
     return iziToast.error({
       title: 'Error',
       message: 'Please enter a search query',
@@ -50,7 +50,6 @@ async function searchImages() {
         q: query,
         image_type: 'photo',
         orientation: 'horizontal',
-        pretty: true,
         safesearch: true,
         per_page: perPage,
         page,
@@ -67,12 +66,15 @@ async function searchImages() {
       noMore.classList.add('is-active');
     }
   } catch (error) {
-    console.log(error);
+    iziToast.error({
+      title: 'Error',
+      message: 'Something went wrong, try again later!',
+    });
     loaderWrapper.classList.remove('is-active');
   }
 }
 
-async function buildGallery(query) {
+async function buildGallery(isNewSearch = false) {
   const markup = images
     .map(img => {
       return `
@@ -89,7 +91,11 @@ async function buildGallery(query) {
     })
     .join('');
 
-  galleryEl.innerHTML = markup;
+  if (isNewSearch) {
+    galleryEl.innerHTML = markup;
+  } else {
+    galleryEl.insertAdjacentHTML('beforeend', markup);
+  }
 
   if (images.length === 0) {
     return iziToast.error({
@@ -110,14 +116,17 @@ async function buildGallery(query) {
   });
 }
 
+async function loadImages(isNewSearch = false) {
+  await searchImages();
+  await buildGallery(isNewSearch);
+}
+
 form.addEventListener('submit', async event => {
   event.preventDefault();
 
-  await searchImages();
-  await buildGallery();
+  loadImages(true);
 });
 
 loadMoreBtn.addEventListener('click', async () => {
-  await searchImages();
-  await buildGallery();
+  loadImages();
 });
