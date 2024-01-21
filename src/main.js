@@ -33,7 +33,7 @@ async function searchImages() {
 
   if (oldQuery !== query) {
     images = [];
-    page = 2;
+    page = 1;
     oldQuery = query;
   } else {
     page += 1;
