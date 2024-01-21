@@ -31,12 +31,12 @@ async function searchImages() {
     });
   }
 
-  if (oldQuery == query) {
+  if (oldQuery !== query) {
     images = [];
     page = 1;
     oldQuery = query;
   } else {
-    page += 1;
+    page += 2;
   }
 
   noMore.classList.remove('is-active');
