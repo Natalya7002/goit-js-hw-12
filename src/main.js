@@ -33,10 +33,10 @@ async function searchImages() {
 
   if (oldQuery !== query) {
     images = [];
-    page = 1;
+    page = 2;
     oldQuery = query;
   } else {
-    page += 2;
+    page += 1;
   }
 
   noMore.classList.remove('is-active');
