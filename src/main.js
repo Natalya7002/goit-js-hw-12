@@ -21,8 +21,8 @@ let page = 1;
 let oldQuery = '';
 const perPage = 40;
 
-async function searchImages() {
-  const query = document.querySelector('.search-form input').value;
+async function searchImages(isNewSearch = false) {
+  const query = document.querySelector('.search-form input').value.trim();
 
   if (!query) {
     return iziToast.error({
@@ -31,7 +31,7 @@ async function searchImages() {
     });
   }
 
-  if (oldQuery !== query) {
+  if (oldQuery !== query || isNewSearch) {
     images = [];
     page = 1;
     oldQuery = query;
@@ -118,7 +118,7 @@ async function buildGallery(isNewSearch = false) {
 }
 
 async function loadImages(isNewSearch = false) {
-  await searchImages();
+  await searchImages(isNewSearch);
   await buildGallery(isNewSearch);
 }
 
