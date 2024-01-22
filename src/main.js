@@ -44,6 +44,7 @@ async function searchImages() {
   loaderWrapper.classList.add('is-active');
 
   try {
+    images = [];
     const response = await axios.get(`https://pixabay.com/api/`, {
       params: {
         key: PIXABEY_API,
